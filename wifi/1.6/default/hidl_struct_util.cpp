@@ -52,7 +52,7 @@ IWifiChip::ChipCapabilityMask convertLegacyLoggerFeatureToHidlChipCapability(uin
         case legacy_hal::WIFI_LOGGER_POWER_EVENT_SUPPORTED:
             return HidlChipCaps::DEBUG_RING_BUFFER_POWER_EVENT;
         case legacy_hal::WIFI_LOGGER_WAKE_LOCK_SUPPORTED:
-            return HidlChipCaps::DEBUG_RING_BUFFER_WAKELOCK_EVENT;
+            return HidlChipCaps::DEBUG_HOST_WAKE_REASON_STATS;
     };
     CHECK(false) << "Unknown legacy feature: " << feature;
     return {};
@@ -156,10 +156,8 @@ bool convertLegacyFeaturesToHidlChipCapabilities(uint64_t legacy_feature_set,
         }
     }
 
-    // There are no flags for these 3 in the legacy feature set. Adding them to
+    // There is no flag for this in the legacy feature set. Adding this to
     // the set because all the current devices support it.
-    *hidl_caps |= HidlChipCaps::DEBUG_RING_BUFFER_VENDOR_DATA;
-    *hidl_caps |= HidlChipCaps::DEBUG_HOST_WAKE_REASON_STATS;
     *hidl_caps |= HidlChipCaps::DEBUG_ERROR_ALERTS;
     return true;
 }
