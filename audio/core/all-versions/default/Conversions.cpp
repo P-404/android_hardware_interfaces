@@ -49,6 +49,9 @@ std::string deviceAddressToHal(const DeviceAddress& address) {
     } else if (halDevice == AUDIO_DEVICE_OUT_REMOTE_SUBMIX ||
                halDevice == AUDIO_DEVICE_IN_REMOTE_SUBMIX) {
         snprintf(halAddress, sizeof(halAddress), "%s", address.rSubmixAddress.c_str());
+    } else if (halDevice == AUDIO_DEVICE_OUT_AUX_DIGITAL ||
+               halDevice == AUDIO_DEVICE_OUT_HDMI) {
+        snprintf(halAddress, AUDIO_DEVICE_MAX_ADDRESS_LEN, "%s", address.busAddress.c_str());
     }
     return halAddress;
 }
